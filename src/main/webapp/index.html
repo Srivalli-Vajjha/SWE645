@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CS Department Survey</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<!--Styles-->
+<style>
+    body {
+        background-image: url("img/bg4.jpg");
+        margin: 0% 20%;
+        font-family: "Roboto", sans-serif;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    input {
+        border: none;
+        padding: 5px 20px;
+        box-sizing: border-box;
+    }
+
+    label {
+        color: #FFCC33;
+    }
+
+    .required {
+        color: red;
+        font-size: small;
+    }
+
+    h1 {
+        color: #006633;
+    }
+
+    .main-heading {
+        text-align: center;
+        border: 5px solid #006633;
+        margin-left: 15%;
+        margin-right: 15%;
+        font-family: Verdana, sans-serif;
+        background-color: rgb(255, 204, 51);
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    input[type=text],
+    input[type=tel],
+    input[type=number],
+    input[type=email],
+    input[type=url],
+    input[type=date],
+    input[type=list],
+    select,
+    #gradMonth {
+        width: 100%;
+    }
+
+    .submit-btn {
+        color: #006633;
+        background-color: #FFCC33;
+        border: none;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .logo img {
+        position: fixed;
+        right: 0px;
+        bottom: 3px;
+        height: 12%;
+        width: 12%;
+        z-index: 100;
+        background-color: rgba(255, 204, 51, 0.8);
+    }
+
+    .form-section {
+        background-color: rgba(0, 102, 51, 0.8);
+        padding: 15px;
+
+    }
+
+    .w3-row {
+        padding-bottom: 10px;
+    }
+    #dataError{
+        color: red;
+    }
+</style>
+<script>
+    //Method to calculate Average and Max 
+function calcRaffle() {
+    var val = document.getElementById("raffle").value;
+    var isInvalid = false;
+    if (val != "") {
+        var inputArray = val.split(',');
+        inputArray = inputArray.map(function (v) {
+            return parseInt(v, 10);
+        });
+        for(var i=0;i< inputArray.length;i++){
+            if(isNaN(inputArray[i])){
+                isInvalid=true;
+                break;
+            }
+        }
+        if (isInvalid == false) {
+            if (inputArray.length < 10 || Math.max(...inputArray) > 100 || Math.min(...inputArray) < 1) {
+                document.getElementById("dataError").innerHTML = "The data should contain at least 10 comma separated values with their values between 1 to 100.";
+
+            }
+            else {
+                document.getElementById("dataError").innerHTML = "";
+            }
+        }
+        else {
+            document.getElementById("dataError").innerHTML = "The data should contain comma separated Integer Values.";
+        }
+    }
+}
+</script>
+<body>
+    <article class="w3-container">
+        <h1 class="main-heading w3-display-center">CS Department Survey</h1>
+        <br>
+        <section class="form-section">
+            <form action="#" autocomplete="on">
+                <!--Firstname-->
+                <div class="w3-container">
+                    <div class="w3-row">
+                        <div class="w3-half">
+                            <label for="firname">
+                                First name <span class="required">*</span>:
+                            </label>
+                        </div>
+                        <div class="w3-half"><input type="text" id="firname" name="firname" placeholder="First Name"
+                                autofocus required></div>
+                    </div>
+                </div>
+                <!--Middle name field-->
+                <div class="w3-container">
+                    <div class="w3-row">
+                        <div class="w3-half">
+                            <label for="firname">
+                                Middle name :
+                            </label>
+                        </div>
+                        <div class="w3-half"><input type="text" id="midname" name="midname" placeholder="Middle Name"
+                                autofocus></div>
+                    </div>
+                </div>
+                <!--Last name field-->
+                <div class="w3-container">
+                    <div class="w3-row">
+                        <div class="w3-half">
+                            <label for="lastname">
+                                Last name <span class="required">*</span>:
+                            </label>
+                        </div>
+                        <div class="w3-half"><input type="text" id="lastname" name="lastname" placeholder="Last Name"
+                                autofocus required></div>
+                    </div>
+                </div>
+                <!--Username-->
+                <div class="w3-container">
+                    <div class="w3-row">
+                        <div class="w3-half"><label for="usrname">Username <span class="required">*</span>: </label>
+                        </div>
+                        <div class="w3-half"><input type="text" id="usrname" name="usrname" placeholder="abcdefg"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <!--Address-->
+                <div class="w3-container">
+                    <div class="w3-row">
+                        <div class="w3-half"> <label for="addr">Street Address <span class="required">*</span>: </label>
+                        </div>
+                        <div class="w3-half"><textarea id="addr" name="addr" rows="4" cols="50" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!--City-->
+                <div class="w3-container">
+                    <div class="w3-row">
+                        <div class="w3-half"><label for="Cty">City<span class="required"> *</span>: </label></div>
+                        <div class="w3-half"><input type="text" id="Cty" name="Cty" placeholder="Ex: Fairfax" required></div>
+                    </div>
+                </div>
+                <br>
+                <!--State-->
+                <div class="w3-container">
+                    <div class="w3-row">
+                        <div class="w3-half"><label for="state">State <span class="required">*</span>:</label> </div>
+                        <div class="w3-half"><input type="text" id="state" name="state" placeholder="Ex: Virginia"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!--Zip-->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half"><label for="zip">ZipCode <span class="required">*</span>:</label> </div>
+                        <div class="w3-half"><input type="number" id="zip" name="zip" placeholder="Eg: 22030"
+                                required><br><br>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!--Telephone Number-->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half"><label for="mobile">Telephone Number <span class="required">*</span>:
+                            </label>
+                        </div>
+                        <div class="w3-half"><input type="tel" id="mobile" name="mobile" placeholder="571-123-9876"
+                                required></div>
+                    </div>
+                </div>
+                <br>
+                <!--email-->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half"><label for="mail">E-Mail <span class="required">*</span>: </label></div>
+                        <div class="w3-half"><input type="email" id="mail" name="mail" placeholder="123@abc.com"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!--Date of survey-->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half"><label for="date">Date of Survey<span class="required"> *</span>: </label></div>
+                        <div class="w3-half"><input type="date" id="date" name="date" required></div>
+                    </div>
+                </div>
+                <br>
+                <!--Recommendations container-->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half"> <label for="recom">How likely do you recommend our college: </label></div>
+                        <div class="w3-half">
+                            <select id="recom" name="recom">
+                                <option value="Very">Very Likely</option>
+                                <option value="likely">Likely</option>
+                                <option value="unlikely">Unlikely</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!--Container for Campus with checkboxes -->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half"><label> What did you like Most on Campus:</label></div>
+                        <div class="w3-half">
+                            <div class="w3-row">
+                                <div class="w3-col m4">
+                                    <input type="checkbox" id="cbx1" name="cbx1" value="students">
+                                    <label for="cbx1"> Students</label>
+                                </div>
+                                <div class="w3-col m4">
+                                    <input type="checkbox" id="cbx2" name="cbx2" value="location">
+                                    <label for="cbx2"> Location</label>
+                                </div>
+                                <div class="w3-col m4">
+                                    <input type="checkbox" id="cbx3" name="cbx3" value="campus">
+                                    <label for="cbx3"> Campus</label>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m4">
+                                    <input type="checkbox" id="cbx4" name="cbx4" value="atmosphere">
+                                    <label for="cbx4"> Atmosphere</label><br>
+                                </div>
+                                <div class="w3-col m4">
+                                    <input type="checkbox" id="cbx5" name="cbx5" value="dorms">
+                                    <label for="cbx5"> Dorm Rooms </label>
+                                </div>
+                                <div class="w3-col m4">
+                                    <input type="checkbox" id="cbx6" name="cbx6" value="sports">
+                                    <label for="cbx6"> Sports</label>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!--Container for hearing about us-->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half"> <label>How did you hear about us:</label></div>
+                        <div class="w3-half">
+                            <input type="radio" id="friends" name="hearabtus" value="friends">
+                            <label for="friends">Friends</label>
+                            <input type="radio" id="television" name="hearabtus" value="television">
+                            <label for="television">Television</label>
+                            <input type="radio" id="Internet" name="hearabtus" value="Internet">
+                            <label for="Internet">Internet</label>
+                            <input type="radio" id="others" name="hearabtus" value="others">
+                            <label for="others">Others</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!-- Raffle -->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half">
+                            <label for="raffle">Raffle<span class="required"> *</span>:</label>
+                        </div>
+                        <div class="w3-half">
+                            <input id="raffle" type="text" name="data" onmouseout="setTimeout('calcRaffle()', 20)"
+                                placeholder="Ex:1,2,3" required />
+                        </div>
+                    </div>
+                    <div class="w3-row">
+                        <span id="dataError"></span>
+                    </div>
+                </div>
+                <!--Additional Comments-->
+                <div class="w3-container ">
+                    <div class="w3-row">
+                        <div class="w3-half"><label for="comments">Additional Comments: </label></div>
+                        <div class="w3-half"><textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Submit Button-->
+                <div class="w3-container w3-center">
+                    <input class="w3-center submit-btn" type="submit" value="Submit">
+                    <input class="w3-center submit-btn" type="reset" value="Cancel">
+                </div>
+            </form>
+        </section>
+    </article>
+    <!--footer with logo linking to cs department-->
+    <footer>
+        <a class="logo" href="https://cs.gmu.edu/" target="_blank"><img src="img/gmu-logo.png" alt="Logo" /></a>
+    </footer>
+</body>
+
+
+</html>

@@ -1,0 +1,84 @@
+body {
+    background-image: url("img/bg4.jpg");
+    margin: 0% 20%;
+    font-family: "Roboto", sans-serif;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+input {
+    border: none;
+    padding: 5px 20px;
+    box-sizing: border-box;
+}
+
+label {
+    color: #FFCC33;
+}
+
+.required {
+    color: red;
+    font-size: small;
+}
+
+h1 {
+    color: #006633;
+}
+
+.main-heading {
+    text-align: center;
+    border: 5px solid #006633;
+    margin-left: 15%;
+    margin-right: 15%;
+    font-family: Verdana, sans-serif;
+    background-color: rgb(255, 204, 51);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+input[type=text],
+input[type=tel],
+input[type=number],
+input[type=email],
+input[type=url],
+input[type=date],
+input[type=list],
+select,
+#gradMonth {
+    width: 100%;
+}
+
+.submit-btn {
+    color: #006633;
+    background-color: #FFCC33;
+    border: none;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.logo img {
+    position: fixed;
+    right: 0px;
+    bottom: 3px;
+    height: 12%;
+    width: 12%;
+    z-index: 100;
+    background-color: rgba(255, 204, 51, 0.8);
+}
+
+.form-section {
+    background-color: rgba(0, 102, 51, 0.8);
+    padding: 15px;
+
+}
+
+.w3-row {
+    padding-bottom: 10px;
+}
+#dataError{
+    color: red;
+}
