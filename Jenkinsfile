@@ -1,6 +1,6 @@
 @NonCPS
 def generateTag() {
-    return "build-" + new Date().format("yyyyMMdd-HHmmss")
+    return "build-" + new Date().format("yyyyMMdd-HHmmss")  
 }
 
 pipeline {
