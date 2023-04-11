@@ -19,6 +19,18 @@ agent any
                }
             }
         }
+    stage('Push to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('',registryCredential) {
+                        def image = docker.build('srivallivajha/studentsurvey645:latest', '.')
+                        docker.withRegistry('',registryCredential) {
+                            image.push()
+                        }
+                    }
+                }
+            }
+        }
    
     // stage('Login') {
     //   steps {
