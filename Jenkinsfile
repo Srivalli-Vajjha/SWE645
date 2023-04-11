@@ -5,6 +5,7 @@ pipeline{
     environment {
 	    	registry = "srivallivajha/studentsurvey645"
         registryCredential = 'dockerhub'
+        def dateTag = new Date().format("yyyyMMdd-HHmmss")
 	}
 agent any
   stages{
@@ -13,7 +14,7 @@ agent any
                 script {
                     sh 'rm -rf *.war'
                     sh 'jar -cvf SurveyForm.war -C src/main/webapp .'
-                    def dateTag = new Date().format("yyyyMMdd-HHmmss")
+                    
                }
             }
         }
