@@ -10,7 +10,8 @@ pipeline{
       steps {
 	sh 'rm -rf *.var'
         sh 'jar -cvf SurveyForm.war -C src/main/webapp .'      
-        sh 'sudo docker build -t srivallivajha/studentsurvey645:latest .'
+        sh 'sudo -S docker build --tag srivallivajha/studentsurvey645:latest .'
+	sh('sudo docker login -u srivallivajha -p \"${DOCKERHUB_CREDENTIALS_PSW}\"')
       }
     }
     stage('Login') {
