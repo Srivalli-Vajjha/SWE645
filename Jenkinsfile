@@ -1,63 +1,40 @@
-@NonCPS
-def generateTag() {
-    return "build-" + new Date().format("yyyyMMdd-HHmmss")  
-}
+//This file with create a CI/CD pipeline for building and deploying the dcoker image to k8 cluster using Github as source control version.
 
-pipeline {
-    environment {
-        registry = "srivallivajha/survey645"
-        // registryCredential = 'dockercred'
-    }
+pipeline{
     agent any
-
-    stages{
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Srivalli-Vajjha/SWE645.git']]])
-            }
-        }
-
-        stage('Build') {
-            steps {
-                script {
-                    sh 'echo ${BUILD_TIMESTAMP}'
-                    tag = generateTag()
-                    docker.withRegistry('',registryCredential){
-                      def customImage = docker.build("srivallivajha/survey645:"+tag)
-                   }
-               }
-            }
-        }
-
-        stage('Push to Docker Hub') {
-            steps {
-                script {
-                    sh 'echo ${BUILD_TIMESTAMP}'
-                    docker.withRegistry('',registryCredential) {
-                        def image = docker.build('srivallivajha/survey645:'+tag, '.')
-                        docker.withRegistry('',registryCredential) {
-                            image.push()
-                        }
-                    }
-                }
-            }
-        }
-
-      stage('Deploying Rancher to single node') {
-         steps {
-            script{
-               sh 'kubectl set image deployment/surveyform container-0=srivallivajha/survey645:'+tag
-            }
-         }
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
+  stages{
+    stage('Build') {
+      steps {
+	sh 'rm -rf *.var'
+        sh 'jar -cvf SurveyForm.war -C src/main/webapp .'      
+        sh 'docker build -t srivallivajha/studentsurvey645:latest .'
       }
-
-    // stage('Deploying Rancher to Load Balancer') {
-    //    steps {
-    //       script{
-    //          sh 'kubectl set image deployment/surveyformlb container-0=srivallivajha/survey645:'+tag
-    //       }
-    //    }
-    // }
-
     }
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+       }
+    }
+    stage("Push image to docker hub"){
+      steps {
+        sh 'docker push srivallivajha/studentsurvey645:latest'
+      }
+    }
+        stage("deploying on k8")
+	{
+		steps{
+			sh 'kubectl set image deployment/deploy1 container-0=srivallivajha/studentsurvey645:latest -n default'
+			sh 'kubectl rollout restart deploy studentpage -n default'
+		}
+	} 
+  }
+ 
+  post {
+	  always {
+			sh 'docker logout'
+		}
+	}    
 }
