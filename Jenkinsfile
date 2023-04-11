@@ -8,18 +8,18 @@ pipeline{
 	}
 agent any
   stages{
-    stage('Build') {
+    stage('Building war') {
             steps {
                 script {
                     sh 'rm -rf *.war'
                     sh 'jar -cvf SurveyForm.war -C src/main/webapp .'
-                    docker.withRegistry('',registryCredential){
-                      def customImage = docker.build("srivallivajha/studentsurvey645:latest")
-                   }
+                  //   docker.withRegistry('',registryCredential){
+                  //     def customImage = docker.build("srivallivajha/studentsurvey645:latest")
+                  //  }
                }
             }
         }
-    stage('Push to Docker Hub') {
+    stage('Pushing latest code to Docker Hub') {
             steps {
                 script {
                     docker.withRegistry('',registryCredential) {
@@ -31,6 +31,13 @@ agent any
                 }
             }
         }
+     stage('Deploying to single node in Rancher') {
+         steps {
+            script{
+               sh 'kubectl set image deployment/deploy1 container-0=srivallivajha/studentsurvey645:latest'
+            }
+         }
+      }
    
     // stage('Login') {
     //   steps {
