@@ -4,21 +4,22 @@ pipeline{
     
     environment {
 	    	registry = "srivallivajha/studentsurvey645"
-		DOCKERHUB_PASS =  credentials('dockerhub')
+        registryCredential = 'dockerhub'
 	}
 agent any
   stages{
     stage('Build') {
-      steps {
-	      script{
-		      checkout scm
-	      	      //sh 'rm -rf *.war'
-                      //sh 'jar -cvf SurveyForm.war -C src/main/webapp .'  
-		      sh "sudo docker login -u srivallivajha -p ${DOCKERHUB_PASS}"
-		      def customImage = docker.build("srivallivajha/studentsurvey645:latest")
-          }	
-      }
-    }
+            steps {
+                script {
+                    sh 'rm -rf *.war'
+                    // sh 'jar -cvf SurveyForm.war -C src/main/webapp .'
+                    docker.withRegistry('',registryCredential){
+                      def customImage = docker.build("srivallivajha/studentsurvey645:latest")
+                   }
+               }
+            }
+        }
+   
     // stage('Login') {
     //   steps {
     //     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
