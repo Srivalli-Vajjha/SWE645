@@ -3,6 +3,7 @@
 pipeline{
     agent any
     environment {
+	    	registry = "srivallivajha/studentsurvey645"
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	}
   stages{
@@ -11,7 +12,7 @@ pipeline{
 	      script{
 	sh 'rm -rf *.war'
         sh 'jar -cvf SurveyForm.war -C src/main/webapp .'  
-	       docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS){
+	       docker.withRegistry('', DOCKERHUB_CREDENTIALS){
                   def customImage = docker.build("srivallivajha/studentsurvey645:latest")
                }
       }	
