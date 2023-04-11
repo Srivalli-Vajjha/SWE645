@@ -12,7 +12,7 @@ agent any
             steps {
                 script {
                     sh 'rm -rf *.war'
-                    // sh 'jar -cvf SurveyForm.war -C src/main/webapp .'
+                    sh 'jar -cvf SurveyForm.war -C src/main/webapp .'
                     docker.withRegistry('',registryCredential){
                       def customImage = docker.build("srivallivajha/studentsurvey645:latest")
                    }
