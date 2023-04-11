@@ -13,6 +13,7 @@ agent any
                 script {
                     sh 'rm -rf *.war'
                     sh 'jar -cvf SurveyForm.war -C src/main/webapp .'
+                    def dateTag = new Date().format("yyyyMMdd-HHmmss")
                }
             }
         }
@@ -20,7 +21,7 @@ agent any
             steps {
                 script {
                     docker.withRegistry('',registryCredential) {
-                        def image = docker.build('srivallivajha/studentsurvey645:latest', '.')
+                        def image = docker.build('srivallivajha/studentsurvey645:'+ dateTag, '.')
                         docker.withRegistry('',registryCredential) {
                             image.push()
                         }
@@ -31,7 +32,8 @@ agent any
      stage('Deploying to single node in Rancher') {
          steps {
             script{
-               sh 'kubectl set image deployment/deploy1 container-0=srivallivajha/studentsurvey645:latest'
+               sh 'kubectl set image deployment/deploy1 container-0=srivallivajha/studentsurvey645:'+dateTag
+               sh 'kubectl set image deployment/deploylb conatiner-0=srivallivajha/studentsurvey645:'+dateTag
             }
          }
       }
