@@ -22,7 +22,7 @@ agent any
             steps {
                 script {
                     docker.withRegistry('',registryCredential) {
-                        def image = docker.build('srivallivajha/studentsurvey645:'+ dateTag, '.','--no-cache')
+                        def image = docker.build('srivallivajha/studentsurvey645:'+ dateTag, '. --no-cache')
                         docker.withRegistry('',registryCredential) {
                             image.push()
                         }
