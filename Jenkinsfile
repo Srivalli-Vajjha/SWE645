@@ -51,13 +51,13 @@ pipeline {
          }
       }
 
-    stage('Deploying Rancher to Load Balancer') {
-       steps {
-          script{
-             sh 'kubectl set image deployment/surveyformlb container-0=srivallivajha/survey645:'+tag
-          }
-       }
-    }
+    // stage('Deploying Rancher to Load Balancer') {
+    //    steps {
+    //       script{
+    //          sh 'kubectl set image deployment/surveyformlb container-0=srivallivajha/survey645:'+tag
+    //       }
+    //    }
+    // }
 
     }
 }
