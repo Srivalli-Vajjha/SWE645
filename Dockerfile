@@ -3,5 +3,3 @@ LABEL maintainer="svajjha@gmu.edu"
 COPY SurveyForm.war /usr/local/tomcat/webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
-RUN usermod -a -G docker jenkins
-USER jenkins
