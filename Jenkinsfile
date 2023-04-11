@@ -14,6 +14,9 @@ agent any
                 script {
                     sh 'rm -rf *.war'
                     sh 'jar -cvf SurveyForm.war -C src/main/webapp .'
+                    docker.withRegistry('',registryCredential){
+                      def img = docker.build('srivallivajha/studentsurvey645:'+ dateTag +' --no-cache')
+                   }
                     
                }
             }
