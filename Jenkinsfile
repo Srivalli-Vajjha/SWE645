@@ -10,7 +10,7 @@ pipeline{
       steps {
 	sh 'rm -rf *.var'
         sh 'jar -cvf SurveyForm.war -C src/main/webapp .'      
-        sh 'docker build -t srivallivajha/studentsurvey645:latest .'
+        sh 'sudo docker build -t srivallivajha/studentsurvey645:latest .'
       }
     }
     stage('Login') {
@@ -20,7 +20,7 @@ pipeline{
     }
     stage("Push image to docker hub"){
       steps {
-        sh 'docker push srivallivajha/studentsurvey645:latest'
+        sh 'sudo docker push srivallivajha/studentsurvey645:latest'
       }
     }
         stage("deploying on k8")
