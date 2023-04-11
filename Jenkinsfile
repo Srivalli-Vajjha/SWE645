@@ -34,7 +34,7 @@ agent any
          steps {
             script{
                sh 'kubectl set image deployment/deploy1 container-0=srivallivajha/studentsurvey645:'+dateTag
-               sh 'kubectl set image deployment/deploylb conatiner-0=srivallivajha/studentsurvey645:'+dateTag
+               sh 'kubectl set image deployment/deploylb container-0=srivallivajha/studentsurvey645:'+dateTag
             }
          }
       }
