@@ -1,18 +1,19 @@
 //This file with create a CI/CD pipeline for building and deploying the dcoker image to k8 cluster using Github as source control version.
 
 pipeline{
-    agent any
+    
     environment {
 	    	registry = "srivallivajha/studentsurvey645"
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+		registryCredential = 'dockerhub'
 	}
+agent any
   stages{
     stage('Build') {
       steps {
 	      script{
 	      sh 'rm -rf *.war'
         sh 'jar -cvf SurveyForm.war -C src/main/webapp .'  
-	       docker.withRegistry('', DOCKERHUB_CREDENTIALS_ID){
+	       docker.withRegistry('', registryCredential){
                   def customImage = docker.build("srivallivajha/studentsurvey645:latest")
                }
           }	
