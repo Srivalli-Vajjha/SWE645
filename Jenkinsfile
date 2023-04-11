@@ -6,16 +6,20 @@ def generateTag() {
 pipeline {
     environment {
         registry = "srivallivajha/survey645"
-        registryCredential = 'dockercred'
+        // registryCredential = 'dockercred'
     }
     agent any
 
     stages{
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Srivalli-Vajjha/SWE645.git']]])
+            }
+        }
 
         stage('Build') {
             steps {
                 script {
-                    sh 'mvn clean package'
                     sh 'echo ${BUILD_TIMESTAMP}'
                     tag = generateTag()
                     docker.withRegistry('',registryCredential){
