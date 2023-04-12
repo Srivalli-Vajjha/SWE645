@@ -33,7 +33,7 @@ agent any
                 }
             }
         }
-     stage('Deploying to single node in Rancher') {
+     stage('Deploying to single node in Rancher and load Balancer') {
          steps {
             script{
                sh 'kubectl set image deployment/deploy1 container-0=srivallivajha/studentsurvey645:'+dateTag
